@@ -76,6 +76,7 @@ class Client:
         self.proxy = accInfo.get("proxy", {})
 
         print("Getting token...")
+        print(self.proxies)
         #Get access token
         r = requests.post(ApiPoints.VERIFY, data={"guid": self.guid,
                                                   "password": self.password,
@@ -84,6 +85,8 @@ class Client:
         pattern = r"AccessToken>(.+)</AccessToken>"
         try:
             self.accessToken = re.findall(pattern, r.text)[0]
+            print(self.clientToken)
+            print(r.text)
         except IndexError:#Token not working
             print("GETTING TOKEN ERROR:", r.text)
             self.active = False
